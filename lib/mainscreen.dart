@@ -43,6 +43,46 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
+  Widget errorWidget({required String errorText}) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.warning),
+          Text(errorText),
+          ElevatedButton(onPressed: getData, child: Text('Try Again'))
+        ],
+      ),
+    );
+  }
+
+  Widget listDataWidget() {
+    return ListView.builder(
+        itemCount: bucketListData.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ViewItemScreen(
+                    title: bucketListData[index]["item"].toString(),
+                    image: bucketListData[index]["image"] ?? "",
+                  );
+                }));
+              },
+              leading: CircleAvatar(
+                radius: 20,
+                backgroundImage:
+                    NetworkImage(bucketListData[index]["image"] ?? ""),
+              ),
+              title: Text(bucketListData[index]["item"] ?? ""),
+              trailing: Text(bucketListData[index]["cost"].toString()),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,44 +114,8 @@ class _MainScreenState extends State<MainScreen> {
           child: isLoading
               ? Center(child: CircularProgressIndicator())
               : isError
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.warning),
-                          Text("Error Getting Bucket list data"),
-                          ElevatedButton(
-                              onPressed: getData, child: Text('Try Again'))
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: bucketListData.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return ViewItemScreen(
-                                  title:
-                                      bucketListData[index]["item"].toString(),
-                                  image: bucketListData[index]["image"] ?? "",
-                                );
-                              }));
-                            },
-                            leading: CircleAvatar(
-                              radius: 20,
-                              backgroundImage: NetworkImage(
-                                  bucketListData[index]["image"] ?? ""),
-                            ),
-                            title: Text(bucketListData[index]["item"] ?? ""),
-                            trailing:
-                                Text(bucketListData[index]["cost"].toString()),
-                          ),
-                        );
-                      }),
+                  ? errorWidget(errorText: "Reconnecting...")
+                  : listDataWidget(),
         ));
   }
 }
