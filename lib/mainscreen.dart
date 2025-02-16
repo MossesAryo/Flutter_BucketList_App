@@ -9,19 +9,20 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
-  void getData(){
+ Future <void>   getData() async {
     // Get data From API
+    Response response = await Dio().get(
+        "https://flutterapitest123-417ed-default-rtdb.asia-southeast1.firebasedatabase.app/bucketlist.json");
 
+    print(response);  
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Bucket List'),
-      ),
-      body: ElevatedButton(onPressed: getData, child: Text('Get Data'))
-    );
+        appBar: AppBar(
+          title: Text('Bucket List'),
+        ),
+        body: ElevatedButton(onPressed: getData, child: Text('Get Data')));
   }
 }
