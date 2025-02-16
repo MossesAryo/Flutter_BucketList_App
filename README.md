@@ -1,16 +1,41 @@
-# bucketlist
+# BucketList App
 
-A new Flutter project.
+BucketList App is a Flutter-based mobile application that helps users explore and track various activities along with their prices. The app fetches data from an API to provide real-time pricing and details.
 
-## Getting Started
+## Features
+- Browse activities with pricing information
+- Fetch data dynamically from an API
+- User-friendly and interactive UI
+- Smooth and responsive navigation
 
-This project is a starting point for a Flutter application.
+## Technologies Used
+- **Flutter** (Dart)
+- **REST API** integration
+- **Provider / Bloc** (State Management, if applicable)
+- **Dio / HTTP Package** (API requests)
 
-A few resources to get you started if this is your first Flutter project:
+## Installation
+1. Clone this repository:
+   ```sh
+   git clone https://github.com/yourusername/bucketlist_app.git
+   cd bucketlist_app
+   ```
+2. Install dependencies:
+   ```sh
+   flutter pub get
+   ```
+3. Run the application:
+   ```sh
+   flutter run
+   ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+Feel free to fork this repository and submit pull requests to enhance the app.
+
+
+
