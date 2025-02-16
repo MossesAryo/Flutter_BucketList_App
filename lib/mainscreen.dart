@@ -72,6 +72,7 @@ class _MainScreenState extends State<MainScreen> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return ViewItemScreen(
+                          index: index,
                           title:
                               bucketListData[index]?["item"].toString() ?? "",
                           image: bucketListData[index]?["image"] ?? "",

@@ -1,15 +1,32 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ViewItemScreen extends StatefulWidget {
   String title;
   String image;
-  ViewItemScreen({super.key, required this.title, required this.image});
+  int index;
+  ViewItemScreen(
+      {super.key,
+      required this.index,
+      required this.title,
+      required this.image});
 
   @override
   State<ViewItemScreen> createState() => _ViewItemScreenState();
 }
 
 class _ViewItemScreenState extends State<ViewItemScreen> {
+  Future<void> deleteData() async {
+    Navigator.pop(context);
+    try {
+      Response response = await Dio().delete(
+          "https://flutterapitest123-417ed-default-rtdb.asia-southeast1.firebasedatabase.app/bucketlist/${widget.index}.json");
+      Navigator.pop(context);
+    } catch (e) {
+      print("error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +47,9 @@ class _ViewItemScreenState extends State<ViewItemScreen> {
                           child: Text("Cancel"),
                         ),
                         InkWell(
+                          onTap: () {
+                            deleteData();
+                          },
                           child: Text("Delete"),
                         )
                       ],
