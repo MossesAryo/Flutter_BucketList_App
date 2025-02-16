@@ -9,12 +9,25 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
- Future <void>   getData() async {
+  Future<void> getData() async {
     // Get data From API
-    Response response = await Dio().get(
-        "https://flutterapitest123-417ed-default-rtdb.asia-southeast1.firebasedatabase.app/bucketlist.json");
 
-    print(response);  
+
+    //Handle API Error
+    try {
+      Response response = await Dio().get(
+          "https://flutterapitest123-417ed-default-rtdb.asia-southeast1.firebasedatabase.app/bucketlist.json");
+
+      print(response);
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Cannot Connect to Server"),
+            );
+          });
+    }
   }
 
   @override
