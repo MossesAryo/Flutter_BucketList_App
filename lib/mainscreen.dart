@@ -9,16 +9,19 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  List<dynamic> bucketListData = [];
+
   Future<void> getData() async {
     // Get data From API
-
 
     //Handle API Error
     try {
       Response response = await Dio().get(
           "https://flutterapitest123-417ed-default-rtdb.asia-southeast1.firebasedatabase.app/bucketlist.json");
 
-      print(response);
+      bucketListData = response.data;
+        
+      setState(() {});
     } catch (e) {
       showDialog(
           context: context,
@@ -36,6 +39,29 @@ class _MainScreenState extends State<MainScreen> {
         appBar: AppBar(
           title: Text('Bucket List'),
         ),
-        body: ElevatedButton(onPressed: getData, child: Text('Get Data')));
+        body: Column(
+          children: [
+            ElevatedButton(onPressed: getData, child: Text('Get Data')),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                    itemCount: bucketListData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        leading: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: NetworkImage(
+                              bucketListData[index]["image"] ?? ""),
+                        ),
+                        title: Text(bucketListData[index]["item"] ?? ""),
+                        trailing:
+                            Text(bucketListData[index]["cost"].toString()),
+                      );
+                    }),
+              ),
+            )
+          ],
+        ));
   }
 }
