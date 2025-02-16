@@ -1,3 +1,4 @@
+import 'package:bucketlist/addBucketlist.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
@@ -50,7 +51,9 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, "/add");
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return AddBucketListScreen();
+            }));
           },
           shape: CircleBorder(),
           child: Icon(Icons.add),
