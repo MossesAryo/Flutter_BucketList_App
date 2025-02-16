@@ -10,8 +10,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   List<dynamic> bucketListData = [];
+  bool isLoading = false;
 
   Future<void> getData() async {
+    setState(() {
+      isLoading = true;
+    });
     // Get data From API
 
     //Handle API Error
@@ -20,9 +24,11 @@ class _MainScreenState extends State<MainScreen> {
           "https://flutterapitest123-417ed-default-rtdb.asia-southeast1.firebasedatabase.app/bucketlist.json");
 
       bucketListData = response.data;
-
+      isLoading = false;
       setState(() {});
     } catch (e) {
+      isLoading = false;
+      setState(() {});
       showDialog(
           context: context,
           builder: (context) {
@@ -54,21 +60,29 @@ class _MainScreenState extends State<MainScreen> {
             )
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-              itemCount: bucketListData.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    radius: 20,
-                    backgroundImage:
-                        NetworkImage(bucketListData[index]["image"] ?? ""),
-                  ),
-                  title: Text(bucketListData[index]["item"] ?? ""),
-                  trailing: Text(bucketListData[index]["cost"].toString()),
-                );
-              }),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            getData();
+          },
+          child: isLoading
+              ? Center(child: CircularProgressIndicator())
+              : ListView.builder(
+                  itemCount: bucketListData.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: NetworkImage(
+                              bucketListData[index]["image"] ?? ""),
+                        ),
+                        title: Text(bucketListData[index]["item"] ?? ""),
+                        trailing:
+                            Text(bucketListData[index]["cost"].toString()),
+                      ),
+                    );
+                  }),
         ));
   }
 }
