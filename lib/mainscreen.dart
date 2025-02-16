@@ -66,23 +66,28 @@ class _MainScreenState extends State<MainScreen> {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return ViewItemScreen(
-                    title: bucketListData[index]?["item"].toString() ?? "",
-                    image: bucketListData[index]?["image"] ?? "",
-                  );
-                }));
-              },
-              leading: CircleAvatar(
-                radius: 20,
-                backgroundImage:
-                    NetworkImage(bucketListData[index]?["image"] ?? ""),
-              ),
-              title: Text(bucketListData[index]?["item"] ?? ""),
-              trailing: Text(bucketListData[index]?["cost"].toString() ?? ""),
-            ),
+            child: (bucketListData[index] is Map)
+                ? ListTile(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ViewItemScreen(
+                          title:
+                              bucketListData[index]?["item"].toString() ?? "",
+                          image: bucketListData[index]?["image"] ?? "",
+                        );
+                      }));
+                    },
+                    leading: CircleAvatar(
+                      radius: 20,
+                      backgroundImage:
+                          NetworkImage(bucketListData[index]?["image"] ?? ""),
+                    ),
+                    title: Text(bucketListData[index]?["item"] ?? ""),
+                    trailing:
+                        Text(bucketListData[index]?["cost"].toString() ?? ""),
+                  )
+                : SizedBox(),
           );
         });
   }
