@@ -48,6 +48,13 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, "/add");
+          },
+          shape: CircleBorder(),
+          child: Icon(Icons.add),
+        ),
         appBar: AppBar(
           title: Text('Bucket List'),
           actions: [
