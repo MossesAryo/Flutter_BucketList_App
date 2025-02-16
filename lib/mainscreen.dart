@@ -13,6 +13,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   List<dynamic> bucketListData = [];
   bool isLoading = false;
+  bool isError = false;
 
   Future<void> getData() async {
     setState(() {
@@ -27,17 +28,12 @@ class _MainScreenState extends State<MainScreen> {
 
       bucketListData = response.data;
       isLoading = false;
+      isError = false;
       setState(() {});
     } catch (e) {
       isLoading = false;
+      isError = true;
       setState(() {});
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text("Cannot Connect to Server"),
-            );
-          });
     }
   }
 
@@ -77,32 +73,45 @@ class _MainScreenState extends State<MainScreen> {
           },
           child: isLoading
               ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                  itemCount: bucketListData.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ViewItemScreen(
-                              title: bucketListData[index]["item"].toString(),
-                              image: bucketListData[index]["image"] ?? "",
-                            );
-                          }));
-                        },
-                        leading: CircleAvatar(
-                          radius: 20,
-                          backgroundImage: NetworkImage(
-                              bucketListData[index]["image"] ?? ""),
-                        ),
-                        title: Text(bucketListData[index]["item"] ?? ""),
-                        trailing:
-                            Text(bucketListData[index]["cost"].toString()),
+              : isError
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.warning),
+                          Text("Error Getting Bucket list data"),
+                          ElevatedButton(
+                              onPressed: getData, child: Text('Try Again'))
+                        ],
                       ),
-                    );
-                  }),
+                    )
+                  : ListView.builder(
+                      itemCount: bucketListData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ViewItemScreen(
+                                  title:
+                                      bucketListData[index]["item"].toString(),
+                                  image: bucketListData[index]["image"] ?? "",
+                                );
+                              }));
+                            },
+                            leading: CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage(
+                                  bucketListData[index]["image"] ?? ""),
+                            ),
+                            title: Text(bucketListData[index]["item"] ?? ""),
+                            trailing:
+                                Text(bucketListData[index]["cost"].toString()),
+                          ),
+                        );
+                      }),
         ));
   }
 }
