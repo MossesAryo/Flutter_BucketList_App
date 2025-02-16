@@ -10,6 +10,9 @@ class AddBucketListScreen extends StatefulWidget {
 class _AddBucketListScreenState extends State<AddBucketListScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("Add Bucket"),
+    ));
   }
 }
