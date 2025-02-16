@@ -4,21 +4,20 @@ BucketList App is a Flutter-based mobile application that helps users explore an
 
 ## Features
 - Browse activities with pricing information
-- Fetch data dynamically from an API
+- Fetch data dynamically from an API (i'm using FireBase)
 - User-friendly and interactive UI
 - Smooth and responsive navigation
 
 ## Technologies Used
 - **Flutter** (Dart)
-- **REST API** integration
 - **Provider / Bloc** (State Management, if applicable)
 - **Dio / HTTP Package** (API requests)
 
 ## Installation
 1. Clone this repository:
    ```sh
-   git clone https://github.com/yourusername/bucketlist_app.git
-   cd bucketlist_app
+   git clone https://github.com/MossesAryo/Flutter_BucketList_App.git
+   cd Flutter_BucketList_App
    ```
 2. Install dependencies:
    ```sh
