@@ -70,18 +70,18 @@ class _MainScreenState extends State<MainScreen> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return ViewItemScreen(
-                    title: bucketListData[index]["item"].toString(),
-                    image: bucketListData[index]["image"] ?? "",
+                    title: bucketListData[index]?["item"].toString() ?? "",
+                    image: bucketListData[index]?["image"] ?? "",
                   );
                 }));
               },
               leading: CircleAvatar(
                 radius: 20,
                 backgroundImage:
-                    NetworkImage(bucketListData[index]["image"] ?? ""),
+                    NetworkImage(bucketListData[index]?["image"] ?? ""),
               ),
-              title: Text(bucketListData[index]["item"] ?? ""),
-              trailing: Text(bucketListData[index]["cost"].toString()),
+              title: Text(bucketListData[index]?["item"] ?? ""),
+              trailing: Text(bucketListData[index]?["cost"].toString() ?? ""),
             ),
           );
         });
