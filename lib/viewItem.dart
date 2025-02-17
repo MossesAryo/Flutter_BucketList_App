@@ -21,7 +21,7 @@ class _ViewItemScreenState extends State<ViewItemScreen> {
     try {
       Response response = await Dio().delete(
           "https://flutterapitest123-417ed-default-rtdb.asia-southeast1.firebasedatabase.app/bucketlist/${widget.index}.json");
-      Navigator.pop(context);
+      Navigator.pop(context, "refresh");
     } catch (e) {
       print("error");
     }
