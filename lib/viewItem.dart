@@ -27,6 +27,19 @@ class _ViewItemScreenState extends State<ViewItemScreen> {
     }
   }
 
+  Future<void> markAsComplete() async {
+    try {
+      Map<String, dynamic> data = {"completed": true};
+
+      Response response = await Dio().patch(
+          "https://flutterapitest123-417ed-default-rtdb.asia-southeast1.firebasedatabase.app/bucketlist/${widget.index}.json",
+          data: data);
+      Navigator.pop(context, "refresh");
+    } catch (e) {
+      print("error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +68,10 @@ class _ViewItemScreenState extends State<ViewItemScreen> {
                       ],
                     );
                   });
+            }
+
+            if (value == 2) {
+              markAsComplete();
             }
           }, itemBuilder: (context) {
             return [
