@@ -20,10 +20,9 @@ class _AddBucketListScreenState extends State<AddBucketListScreen> {
   Future<void> addData() async {
     try {
       Map<String, dynamic> data = {
-        "cost": 10000,
-        "image":
-            "https://wallpapers.com/images/featured/nepal-684cyeq8t5f8csf9",
-        "item": "Visit Nepal",
+        "cost": costText.text,
+        "image": imgURLText.text,
+        "item": itemText.text,
         "completed": false
       };
 
