@@ -13,6 +13,10 @@ class AddBucketListScreen extends StatefulWidget {
 }
 
 class _AddBucketListScreenState extends State<AddBucketListScreen> {
+
+   
+
+
   Future<void> addData() async {
     try {
       Map<String, dynamic> data = {
@@ -35,10 +39,40 @@ class _AddBucketListScreenState extends State<AddBucketListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Bucket"),
-      ),
-      body: ElevatedButton(onPressed: addData, child: Text("add data")),
-    );
+        appBar: AppBar(
+          title: Text("Add Bucket"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(label: Text("Item")),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              TextField(
+                decoration: InputDecoration(label: Text("Estimated Costs")),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              TextField(
+                decoration: InputDecoration(label: Text("Image URL")),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: ElevatedButton(
+                          onPressed: addData, child: Text("add data"))),
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
