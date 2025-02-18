@@ -13,9 +13,9 @@ class AddBucketListScreen extends StatefulWidget {
 }
 
 class _AddBucketListScreenState extends State<AddBucketListScreen> {
-
-   
-
+  TextEditingController itemText = TextEditingController();
+  TextEditingController costText = TextEditingController();
+  TextEditingController imgURLText = TextEditingController();
 
   Future<void> addData() async {
     try {
@@ -47,18 +47,21 @@ class _AddBucketListScreenState extends State<AddBucketListScreen> {
           child: Column(
             children: [
               TextField(
+                controller: itemText,
                 decoration: InputDecoration(label: Text("Item")),
               ),
               SizedBox(
                 height: 30,
               ),
               TextField(
+                controller: costText,
                 decoration: InputDecoration(label: Text("Estimated Costs")),
               ),
               SizedBox(
                 height: 30,
               ),
               TextField(
+                controller: imgURLText,
                 decoration: InputDecoration(label: Text("Image URL")),
               ),
               SizedBox(
