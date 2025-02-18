@@ -111,7 +111,9 @@ class _MainScreenState extends State<MainScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return AddBucketListScreen();
+              return AddBucketListScreen(
+                newIndex: bucketListData.length,
+              );
             }));
           },
           shape: CircleBorder(),
